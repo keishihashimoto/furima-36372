@@ -41,7 +41,6 @@ Things you may want to cover:
 
 - belongs_to :user
 - has_one: purchase
-- has_one :departure
 
 ## usersテーブル
 
@@ -60,7 +59,6 @@ Things you may want to cover:
 
 - has_many :items
 - has_many :purchases
-- has_many :departures
 
 ## purchases テーブル
 
