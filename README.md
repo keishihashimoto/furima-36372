@@ -32,7 +32,7 @@ Things you may want to cover:
 | description        | text       | null: false                    |
 | category_id        | integer    | null: false                    | 
 | postage_id         | integer    | null: false                    |
-| shipment_source_id | integer    | null: false                    |
+| prefecture_id      | integer    | null: false                    |
 | delivery_id        | integer    | null: false                    |
 | price              | integer    | null: false                    |
 | user               | references | null: false, foreign_key: true |
