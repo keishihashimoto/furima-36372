@@ -99,17 +99,4 @@ RSpec.describe User, type: :model do
       end
     end
   end
-
-  describe "ログイン" do
-  end
-
-  describe "ハンドリングエラー" do
-  end
-
-  describe "入力済み項目の表示" do
-  end
-
-  describe "エラーメッセージ" do
-  end
-
 end
