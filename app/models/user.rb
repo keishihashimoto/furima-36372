@@ -6,14 +6,16 @@ class User < ApplicationRecord
   validates :password,
             format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i,
                       message: 'is Invalid. Alphabet and number must be used together.' }
-  validates :nickname, presence: true
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-  validates :first_name, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: 'is Invalid. Input full-width characters.' }
-  validates :last_name, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: 'is Invalid. Input full-width characters.' }
-  validates :first_name_reading, presence: true
-  validates :last_name_reading, presence: true
-  validates :first_name_reading, format: { with: /\A[ァ-ヶ一]+\z/, message: 'is Invalid. Input full-width katakana caracters' }
-  validates :last_name_reading, format: { with: /\A[ァ-ヶ一]+\z/, message: 'is Invalid. Input full-width katakana caracters' }
-  validates :birth_day, presence: true
+  with_options presence: true do
+    validates :nickname
+    validates :birth_day
+    with_options format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: 'is Invalid. Input full-width characters.' } do
+      validates :first_name
+      validates :last_name
+    end
+    with_options format: { with: /\A[ァ-ヶ一]+\z/, message: 'is Invalid. Input full-width katakana caracters' } do
+      validates :first_name_reading
+      validates :last_name_reading
+    end
+  end
 end
