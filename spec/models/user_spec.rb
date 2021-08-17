@@ -22,6 +22,11 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("Email can't be blank")
       end
+      it "メールアドレスに@が含まれていなければ登録ができない" do
+        @user.email = "absd12345"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Email is invalid")
+      end
       it 'メールアドレスが一意でなければ登録ができない' do
         user = FactoryBot.build(:user)
         user.email = @user.email
@@ -43,6 +48,18 @@ RSpec.describe User, type: :model do
       it 'passwordが英数字混合でなければ登録できない' do
         @user.password = '123456'
         @user.password_confirmation = '123456'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password is Invalid. Alphabet and number must be used together.')
+      end
+      it 'passwordが英数字混合でなければ登録できない' do
+        @user.password = 'abcdef'
+        @user.password_confirmation = 'abcdef'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password is Invalid. Alphabet and number must be used together.')
+      end
+      it 'passwordが英数字混合でなければ登録できない' do
+        @user.password = '１２３abc'
+        @user.password_confirmation = '１２３abc'
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is Invalid. Alphabet and number must be used together.')
       end
