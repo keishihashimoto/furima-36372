@@ -107,7 +107,7 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include('Price is not a number')
       end
       it '価格が英数字混合で入力されている場合には出品できない' do
-        @item.price = "123abc"
+        @item.price = '123abc'
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not a number')
       end
