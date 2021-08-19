@@ -19,6 +19,7 @@ class PurchaseDestination
     validates :address
     validates :phone_number
     validates :purchase_id
+    validates :token
   end
 
   def save
