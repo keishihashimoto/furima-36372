@@ -1,5 +1,5 @@
 const pay = () => {
-  Payjp.setPublicKey("pk_test_d7e8cfb4475936c66faa63b0")
+  Payjp.setPublicKey(process.env.PUBLIC_KEY)
   const button = document.getElementById("button")
   button.addEventListener("click", (e) => {
     e.preventDefault()
@@ -21,7 +21,7 @@ const pay = () => {
       document.getElementById("card-number").removeAttribute("name")
       document.getElementById("card-exp-month").removeAttribute("name")
       document.getElementById("card-exp-year").removeAttribute("name")
-      document.getElementById("card-cvc").removeAttribute("name")
+      document.getElementById("card-cvc").removeAttribute("name")//
       document.getElementById("charge-form").submit()
     })
   })

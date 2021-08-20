@@ -10,12 +10,12 @@ class OrdersController < ApplicationController
     set_item
     @purchase_destination = PurchaseDestination.new(purchase_params)
     if @purchase_destination.valid?
-      Payjp.api_key = "sk_test_85b5d675e2025f1f099e2730"
+      Payjp.api_key = ENV['SECRET_KEY']
       binding.pry
       Payjp::Charge.create(
         amount: @item.price,
         card: purchase_params[:token],
-        currency: "jpy"
+        currency: 'jpy'
       )
       @purchase_destination.save
       redirect_to root_path
@@ -25,12 +25,14 @@ class OrdersController < ApplicationController
   end
 
   private
+
   def purchase_params
-    params.require(:purchase_destination).permit(:postal_number, :prefecture_id, :municipalities, :address, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+    params.require(:purchase_destination).permit(:postal_number, :prefecture_id, :municipalities, :address, :building_name, :phone_number).merge(
+      user_id: current_user.id, item_id: params[:item_id], token: params[:token]
+    )
   end
 
   def set_item
     @item = Item.find(params[:item_id])
   end
-
 end
