@@ -9,12 +9,7 @@ class OrdersController < ApplicationController
   def create
     @purchase_destination = PurchaseDestination.new(purchase_params)
     if @purchase_destination.valid?
-      Payjp.api_key = ENV['SECRET_KEY']
-      Payjp::Charge.create(
-        amount: @item.price,
-        card: purchase_params[:token],
-        currency: 'jpy'
-      )
+      pay_item
       @purchase_destination.save
       redirect_to root_path
     else
@@ -33,4 +28,14 @@ class OrdersController < ApplicationController
   def set_item
     @item = Item.find(params[:item_id])
   end
+
+  def pay_item
+    Payjp.api_key = ENV['SECRET_KEY']
+    Payjp::Charge.create(
+      amount: @item.price,
+      card: purchase_params[:token],
+      currency: 'jpy'
+    )
+  end
+
 end
