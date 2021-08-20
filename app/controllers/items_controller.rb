@@ -19,11 +19,10 @@ class ItemsController < ApplicationController
   end
 
   def show
-    redirect_to root_path unless @item.purchase.nil?
   end
 
   def edit
-    redirect_to root_path if current_user.id != @item.user.id
+    redirect_to root_path if current_user.id != @item.user.id || @item.purchase != nil
   end
 
   def update
