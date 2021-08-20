@@ -1,13 +1,12 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:index]
+  before_action :set_item, only: [:index, :create]
   def index
-    set_item
     redirect_to root_path if current_user.id == @item.user.id || !@item.purchase.nil?
     @purchase_destination = PurchaseDestination.new
   end
 
   def create
-    set_item
     @purchase_destination = PurchaseDestination.new(purchase_params)
     if @purchase_destination.valid?
       Payjp.api_key = ENV['SECRET_KEY']
