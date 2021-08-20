@@ -19,6 +19,7 @@ class ItemsController < ApplicationController
   end
 
   def show
+    redirect_to root_path if @item.purchase != nil
   end
 
   def edit
