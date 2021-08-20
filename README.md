@@ -71,9 +71,9 @@ Things you may want to cover:
 
 - belongs_to :user
 - belongs_to :item
-- has_one :departure
+- has_one :destinations
 
-## departures テーブル
+## destinations テーブル
 
 | Column         | Type       | Options                        |
 | -------------- | ---------- | ------------------------------ |
