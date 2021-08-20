@@ -18,12 +18,11 @@ class PurchaseDestination
     validates :municipalities
     validates :address
     validates :phone_number
-    validates :purchase_id
     validates :token
   end
 
   def save
-    purchase = Purchase.create(user_id: current_user.id, item_id: params[:item_id])
+    purchase = Purchase.create(user_id: user_id, item_id: item_id)
     destination = Destination.create(postal_number: postal_number, prefecture_id: prefecture_id, municipalities: municipalities, address: address, phone_number: phone_number, purchase_id: purchase.id)
   end
 

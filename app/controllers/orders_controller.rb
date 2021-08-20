@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  
   def index
     @item = Item.find(params[:item_id])
     @purchase_destination = PurchaseDestination.new
@@ -6,10 +7,11 @@ class OrdersController < ApplicationController
 
   def create
     @item = Item.find(params[:item_id])
-    @purchasedestination = PurchaseDestination.new(purchase_params)
+    @purchase_destination = PurchaseDestination.new(purchase_params)
     if @purchase_destination.valid?
       Payjp.api_key = "sk_test_85b5d675e2025f1f099e2730"
-      Payjp::charge.create(
+      binding.pry
+      Payjp::Charge.create(
         amount: @item.price,
         card: purchase_params[:token],
         currency: "jpy"
@@ -23,7 +25,7 @@ class OrdersController < ApplicationController
 
   private
   def purchase_params
-    params.require(:purchase_destination).permit(:postal_number, :prefecture_id, :municipalitiesi, :address, :building_name, :phone_number).merge(item_id: params[:item_id], token: params[:token])
+    params.require(:purchase_destination).permit(:postal_number, :prefecture_id, :municipalities, :address, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
 end
