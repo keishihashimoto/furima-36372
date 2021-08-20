@@ -1,1 +1,1 @@
-Webpacker::Compiler.env["PUBLIC_KEY"] == ENV["PUBLIC_KEY"]
+Webpacker::Compiler.env["PUBLIC_KEY"] = ENV["PUBLIC_KEY"]

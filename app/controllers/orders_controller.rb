@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
       render :index
     end
   end
-
+  
   private
 
   def purchase_params
