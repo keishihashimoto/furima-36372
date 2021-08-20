@@ -11,7 +11,6 @@ class OrdersController < ApplicationController
     @purchase_destination = PurchaseDestination.new(purchase_params)
     if @purchase_destination.valid?
       Payjp.api_key = ENV['SECRET_KEY']
-      binding.pry
       Payjp::Charge.create(
         amount: @item.price,
         card: purchase_params[:token],
