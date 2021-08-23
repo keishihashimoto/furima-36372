@@ -121,6 +121,7 @@
       <% @items.each do |item| %>
         <li class='list'>
           <%= link_to item_path(item) do %>
+            <% if item.purchase == nil %>
             <div class='item-img-content'>
               <%= image_tag item.image, class: "item-img" %>
               <% if item.purchase != nil %>
@@ -142,6 +143,7 @@
                 </div>
               </div>
             </div>
+            <% end %>
           <% end %>
         </li>
       <% end %>
