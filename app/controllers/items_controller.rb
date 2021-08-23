@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :destroy]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   def index
-    @items = Item.all.order(created_at: "DESC")
+    @items = Item.all.order(created_at: 'DESC')
   end
 
   def new
@@ -42,6 +42,11 @@ class ItemsController < ApplicationController
     end
   end
 
+  def search
+    @items = Item.search(params[:search])
+    @message = set_message
+  end
+
   private
 
   def item_params
@@ -51,5 +56,13 @@ class ItemsController < ApplicationController
 
   def set_item
     @item = Item.find(params[:id])
+  end
+
+  def set_message
+    if @items == []
+      "『#{params[:search]}』の検索結果はありませんでした。"
+    else
+      "『#{params[:search]}』の検索結果"
+    end
   end
 end

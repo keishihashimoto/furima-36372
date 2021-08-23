@@ -22,4 +22,8 @@ class Item < ApplicationRecord
   belongs_to :postage
   belongs_to :prefecture
   belongs_to :delivery
+
+  def self.search(search)
+    items = Item.where('name LIkE?', search.to_s).order(created_at: 'DESC')
+  end
 end

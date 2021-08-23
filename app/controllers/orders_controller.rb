@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
       render :index
     end
   end
-  
+
   private
 
   def purchase_params
@@ -37,5 +37,4 @@ class OrdersController < ApplicationController
       currency: 'jpy'
     )
   end
-
 end
