@@ -62,7 +62,20 @@ class ItemsController < ApplicationController
     if @items == []
       "『#{params[:search]}』の検索結果はありませんでした。"
     else
-      "『#{params[:search]}』の検索結果"
+      set_purchases
+      if @items.length == @purchases.length
+        "『#{params[:search]}』に関する商品は全て販売済です。"
+      else
+        "『#{params[:search]}』の検索結果"
+      end
     end
+  end
+
+  def set_purchases
+    @purchases = []
+    @items.each do |item|
+      @purchases << item.purchase
+    end
+    return @purchases
   end
 end

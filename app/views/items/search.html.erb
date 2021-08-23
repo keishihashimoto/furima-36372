@@ -5,6 +5,7 @@
   </div>
   <ul class='item-lists'>
     <% @items.each do |item| %>
+      <% if item.purchase == nil %>
       <li class='list'>
         <%= link_to item_path(item) do %>
           <div class='item-img-content'>
@@ -28,6 +29,7 @@
               </div>
             </div>
           </div>
+        <% end %>
       </li>
       <% end %>
     <% end %>
