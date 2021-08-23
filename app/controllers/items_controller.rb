@@ -3,6 +3,7 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   def index
     @items = Item.all.order(created_at: 'DESC')
+    @purchases = set_purchases
   end
 
   def new
@@ -74,7 +75,9 @@ class ItemsController < ApplicationController
   def set_purchases
     @purchases = []
     @items.each do |item|
-      @purchases << item.purchase
+      if item.purchase != nil
+        @purchases << item.purchase
+      end
     end
     return @purchases
   end
