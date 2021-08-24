@@ -59,6 +59,16 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def set_purchases
+    @purchases = []
+    @items.each do |item|
+      if item.purchase != nil
+        @purchases << item.purchase
+      end
+    end
+    return @purchases
+  end
+
   def set_message
     if @items == []
       "『#{params[:search]}』の検索結果はありませんでした。"
@@ -72,13 +82,4 @@ class ItemsController < ApplicationController
     end
   end
 
-  def set_purchases
-    @purchases = []
-    @items.each do |item|
-      if item.purchase != nil
-        @purchases << item.purchase
-      end
-    end
-    return @purchases
-  end
 end

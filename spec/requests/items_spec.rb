@@ -33,4 +33,15 @@ RSpec.describe "Items", type: :request do
       expect(response.body).to include("https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg")
     end
   end
+  describe "items#show" do
+    it "searchアクションにリクエストを送ると正常にレスポンスが返ってくる" do
+      get search_items_path
+      expect(response.status).to eq 200
+    end
+    it "そのままだと検索結果なしになる" do
+      get search_items_path
+      expect(response.body).to include("『』の検索結果はありませんでした。")
+      expect(response.body).not_to include(@item.name)
+    end
+  end
 end
