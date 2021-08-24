@@ -10,7 +10,7 @@ FactoryBot.define do
     price { Faker::Number.between(from: 300, to: 9_999_999) }
     association :user
 
-    after(:build) do |item|
+    after(:build, :create) do |item|
       item.image.attach(io: File.open('public/images/test_image.png'), filename: 'test_image.png')
     end
   end
