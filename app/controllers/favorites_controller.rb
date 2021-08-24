@@ -1,7 +1,8 @@
 class FavoritesController < ApplicationController
   def create
-    @favorite = Favorite.new(favorite_params)
-    if @favorite.save
+    unless Favorite.exists?(user_id: current_user.id, item_id: params[:item_id])
+      @favorite = Favorite.new(favorite_params)
+      @favorite.save
     end
   end
 
