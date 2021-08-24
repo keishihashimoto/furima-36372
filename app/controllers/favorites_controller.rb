@@ -4,7 +4,6 @@ class FavoritesController < ApplicationController
     user_id = current_user.id
     item = Item.find(params[:item_id])
     item_id = item.id
-    item_user_id = item.user.id
     @Favorite = Favorite.create(favorite_params)
   end
 
