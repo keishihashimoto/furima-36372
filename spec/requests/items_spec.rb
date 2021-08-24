@@ -19,9 +19,11 @@ RSpec.describe "Items", type: :request do
       @user = FactoryBot.create(:user)
       @purchase_destination = FactoryBot(:purchase_destination, item_id: @item.id, user_id: @user.id)
       get root_path
-      expect(response.body).not_to include(@item.text)
+      expect(response.body).not_to include(@item.name)
     end
     it "表示できる商品が存在しない時にはサンプル画像が表示される" do
+      @user = FactoryBot.create(:user)
+      @purchase_destination = FactoryBot(:purchase_destination, item_id: @item.id, user_id: @user.id)
       get root_path
       expect(response.body).to include("商品を出品してね")
     end
