@@ -23,10 +23,7 @@
             </h3>
             <div class='item-price'>
               <span><%= item.price %>円<br><%= item.postage.text %></span>
-              <div class='star-btn'>
-                <%= image_tag "star.png", class:"star-icon" %>
-                <span class='star-count'>0</span>
-              </div>
+              <%= render "shared/star_btn", item: item %>
             </div>
           </div>
         <% end %>
