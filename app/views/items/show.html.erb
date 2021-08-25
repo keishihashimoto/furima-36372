@@ -67,8 +67,10 @@
     </table>
     <div class="option">
       <div class="favorite-btn">
+        <%= link_to item_favorites_path(@item), method: :post do %>
         <%= image_tag "star.png" ,class:"favorite-star-icon" ,width:"20",height:"20"%>
-        <span>お気に入り 0</span>
+        <span>お気に入り <%= @item.favorites.length %></span>
+        <% end %>
       </div>
       <div class="report-btn">
         <%= image_tag "flag.png" ,class:"report-flag-icon" ,width:"20",height:"20"%>
