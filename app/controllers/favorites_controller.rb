@@ -2,9 +2,9 @@ class FavoritesController < ApplicationController
   before_action :authenticate_user!, only: [:create], if: :favorites_controller?
   def create
     user_id = current_user.id
-    item = Item.find(params[:item_id])
-    item_id = item.id
-    @Favorite = Favorite.create(favorite_params)
+    @item = Item.find(params[:item_id])
+    item_id = @item.id
+    @favorite = Favorite.create(favorite_params)
   end
 
   private

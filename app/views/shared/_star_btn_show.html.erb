@@ -1,0 +1,4 @@
+<%= link_to item_favorites_path(item), method: :post, remote: true do %>
+<%= image_tag "star.png" ,class:"favorite-star-icon" ,width:"20",height:"20"%>
+<span>お気に入り <%= item.favorites.length %></span>
+<% end %>
