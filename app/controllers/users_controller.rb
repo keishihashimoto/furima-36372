@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action: authenticate_user!, only: [:show], if: :user_controller?
+  before_action :authenticate_user!, only: [:show], if: :users_controller?
+  before_action :visit_root, only: [:show], unless: :same_user?
   
   def show
     @user = current_user
@@ -19,7 +20,17 @@ class UsersController < ApplicationController
     favorite_items
   end
 
-  def user_controller?
-    return if controller_name == "users"
+  def users_controller?
+    return controller_name == "users"
+  end
+
+  def same_user?
+    if user_signed_in?
+      return current_user.id == params[:id]
+    end
+  end
+
+  def visit_root
+    redirect_to root_path
   end
 end
