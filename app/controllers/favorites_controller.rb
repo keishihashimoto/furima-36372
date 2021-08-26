@@ -1,7 +1,6 @@
 class FavoritesController < ApplicationController
   before_action :authenticate_user!, only: [:create], if: :favorites_controller?
   def create
-    binding.pry
     if user_signed_in?
       user_id = current_user.id
       @item = Item.find(params[:item_id])
