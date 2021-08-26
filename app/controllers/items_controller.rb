@@ -62,11 +62,9 @@ class ItemsController < ApplicationController
   def set_purchases
     @purchases = []
     @items.each do |item|
-      if item.purchase != nil
-        @purchases << item.purchase
-      end
+      @purchases << item.purchase unless item.purchase.nil?
     end
-    return @purchases
+    @purchases
   end
 
   def set_message
@@ -81,5 +79,4 @@ class ItemsController < ApplicationController
       end
     end
   end
-
 end
