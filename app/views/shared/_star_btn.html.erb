@@ -1,6 +1,4 @@
-<div class='star-btn'>
-  <%= link_to item_favorites_path(item), method: :post do %>
-  <%= image_tag "star.png", class:"star-icon" %>
-  <span class='star-count'><%= item.favorites.length %></span>
-  <% end %>
-</div>
+<%= link_to "#", class:"favor-star", id: "favor-star#{item.id}", method: :post, remote: true do %>
+<%= image_tag "star.png", class:"star-icon" %>
+<span class='star-count' id="star-count-<%= item.id %>"><%= item.favorites.length %></span>
+<% end %>

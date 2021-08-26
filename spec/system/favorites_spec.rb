@@ -14,8 +14,9 @@ RSpec.describe "Favorites", type: :system do
         fill_in "user[email]", with: @user.email
         fill_in "user[password]", with: @user.password
         find('input[name="commit"]').click
-        # トップページに遷移する
+        # 商品詳細ページに遷移する
         expect(current_path).to eq root_path
+        visit item_path(@item)
         # 画面上にお気に入りの数が表示されている
         expect(page).to have_selector ".star-count", text: @item.favorites.length
         # お気に入りのボタンを押すとお気に入りの数が一つ増える
@@ -23,7 +24,7 @@ RSpec.describe "Favorites", type: :system do
           find('.star-count', text: @item.favorites.length).click
         }.to change{ Favorite.count }.by(1)
         # ページはトップページから遷移しない
-        expect(current_path).to eq root_path
+        expect(current_path).to eq item_path(@item)
       end
     end
     context "お気に入り登録ができない時" do
@@ -36,8 +37,9 @@ RSpec.describe "Favorites", type: :system do
         fill_in "user[email]", with: @user.email
         fill_in "user[password]", with: @user.password
         find('input[name="commit"]').click
-        # トップページに遷移する
+        # 商品詳細ページに遷移する
         expect(current_path).to eq root_path
+        visit item_path(@item)
         # 画面上にお気に入りの数が表示されている
         expect(page).to have_selector ".star-count", text: @item.favorites.length
         # お気に入りのボタンを押すとお気に入りの数が一つ増える
@@ -45,7 +47,7 @@ RSpec.describe "Favorites", type: :system do
           find('.star-count', text: @item.favorites.length).click
         }.to change{ Favorite.count }.by(0)
         # ページはトップページから遷移しない
-        expect(current_path).to eq root_path
+        expect(current_path).to eq item_path(@item)
       end
       it "自分が出品している商品にはお気に入り登録ができない" do
         # @userと紐づく商品を用意
@@ -56,8 +58,9 @@ RSpec.describe "Favorites", type: :system do
         fill_in "user[email]", with: @user.email
         fill_in "user[password]", with: @user.password
         find('input[name="commit"]').click
-        # トップページに遷移する
+        # 商品詳細ページに遷移する
         expect(current_path).to eq root_path
+        visit item_path(@item)
         # 画面上にお気に入りの数が表示されている
         expect(page).to have_selector ".star-count", text: item.favorites.length
         # お気に入りのボタンを押してもお気に入りの数が一つ増えない
@@ -65,19 +68,19 @@ RSpec.describe "Favorites", type: :system do
           all('.star-count', text: item.favorites.length)[0].click
         }.to change{ Favorite.count }.by(0)
         # ページはトップページから遷移しない
-        expect(current_path).to eq root_path
+        expect(current_path).to eq item_path(@item)
       end
       it "ログインしていない場合にはお気に入り登録ができない" do
-        # トップページに遷移する
-        visit root_path
+        # 商品詳細ページに遷移する
+        visit item_path(@item)
         # @itemのお気に入りの数が表示されている
         expect(page).to have_selector ".star-count", text: @item.favorites.length
         # お気に入りボタンを押してもお気に入りの数は増えない
         expect{
-          find('.star-count', text: @item.favorites.length).click
+          find('.star-count').click
         }.to change{ Favorite.count }.by(0)
-        # サインインページに遷移する
-        expect(current_path).to eq new_user_session_path
+        # サインインページに遷移しない
+        expect(current_path).to eq item_path(@item)
       end
     end
   end
