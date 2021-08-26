@@ -4,7 +4,6 @@
   </div>
   <ul class='item-lists'>
     <% favorite_items.each do |item| %>
-      <% if item.purchase == nil %>
       <li class='list'>
         <%= link_to item_path(item) do %>
           <div class='item-img-content'>
@@ -29,7 +28,6 @@
           </div>
         <% end %>
       </li>
-      <% end %>
     <% end %>
   </ul>
 </div>

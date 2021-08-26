@@ -26,7 +26,7 @@ class UsersController < ApplicationController
 
   def same_user?
     if user_signed_in?
-      return current_user.id == params[:id]
+      return current_user.id == params[:id].to_i
     end
   end
 
