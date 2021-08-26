@@ -39,10 +39,6 @@ class OrdersController < ApplicationController
   end
 
   def orders_controller?
-    if controller_name == "orders"
-      return true
-    else
-      return false
-    end
+    controller_name == 'orders'
   end
 end

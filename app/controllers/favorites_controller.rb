@@ -12,11 +12,12 @@ class FavoritesController < ApplicationController
   end
 
   private
+
   def favorite_params
     params.permit(:item_id).merge(user_id: current_user.id)
   end
 
   def favorites_controller?
-    controller_name == "favorites"
+    controller_name == 'favorites'
   end
 end

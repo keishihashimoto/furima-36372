@@ -27,5 +27,4 @@ class Item < ApplicationRecord
   def self.search(search)
     items = Item.where('name LIkE?', "%#{search}%").order(created_at: 'DESC')
   end
-
 end
