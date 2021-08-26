@@ -34,10 +34,10 @@ RSpec.describe 'Favorites', type: :system do
         visit item_path(@item)
         # 画面上にお気に入りの数が表示されている
         expect(page).to have_selector '.star-count', text: @item.favorites.length
-        # お気に入りのボタンを押すとお気に入りの数が一つ増える
+        # お気に入りのボタンを押すとお気に入り登録が解除される
         expect do
           find('.star-count', text: @item.favorites.length).click
-        end.to change { Favorite.count }.by(0)
+        end.to change { Favorite.count }.by(-1)
         # ページはトップページから遷移しない
         expect(current_path).to eq item_path(@item)
       end
