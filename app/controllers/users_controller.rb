@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, only: [:show], if: :users_controller?
   before_action :visit_root, only: [:show], unless: :same_user?
-  
+
   def show
     @user = current_user
     @favorite_message = "#{@user.nickname}さんのお気に入り一覧"
@@ -21,13 +21,11 @@ class UsersController < ApplicationController
   end
 
   def users_controller?
-    return controller_name == "users"
+    controller_name == 'users'
   end
 
   def same_user?
-    if user_signed_in?
-      return current_user.id == params[:id].to_i
-    end
+    return current_user.id == params[:id].to_i if user_signed_in?
   end
 
   def visit_root

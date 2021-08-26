@@ -8,12 +8,8 @@ RSpec.describe 'Favorites', type: :system do
   describe 'お気に入り登録の結合テスト' do
     context 'お気に入り登録ができるとき' do
       it 'ログインしていればお気に入り登録ができる' do
-        # ログインページに遷移する
-        visit new_user_session_path
-        # ログインする
-        fill_in 'user[email]', with: @user.email
-        fill_in 'user[password]', with: @user.password
-        find('input[name="commit"]').click
+        # サインインする
+        sign_in_support(@user)
         # 商品詳細ページに遷移する
         expect(current_path).to eq root_path
         visit item_path(@item)
@@ -31,33 +27,25 @@ RSpec.describe 'Favorites', type: :system do
       it '一度お気に入りボタンを押した商品に関しては、もう一度お気に入りボタンを押してもお気に入り登録されない' do
         # 既に一度お気に入りに登録済の商品を用意
         @favorite = FactoryBot.create(:favorite, item_id: @item.id, user_id: @user.id)
-        # ログインページに遷移する
-        visit new_user_session_path
-        # ログインする
-        fill_in 'user[email]', with: @user.email
-        fill_in 'user[password]', with: @user.password
-        find('input[name="commit"]').click
+        # サインインする
+        sign_in_support(@user)
         # 商品詳細ページに遷移する
         expect(current_path).to eq root_path
         visit item_path(@item)
         # 画面上にお気に入りの数が表示されている
         expect(page).to have_selector '.star-count', text: @item.favorites.length
-        # お気に入りのボタンを押すとお気に入りの数が一つ増える
+        # お気に入りのボタンを押すとお気に入り登録が解除される
         expect do
           find('.star-count', text: @item.favorites.length).click
-        end.to change { Favorite.count }.by(0)
+        end.to change { Favorite.count }.by(-1)
         # ページはトップページから遷移しない
         expect(current_path).to eq item_path(@item)
       end
       it '自分が出品している商品にはお気に入り登録ができない' do
         # @userと紐づく商品を用意
         item = FactoryBot.create(:item, user_id: @user.id)
-        # ログインページに遷移する
-        visit new_user_session_path
-        # ログインする
-        fill_in 'user[email]', with: @user.email
-        fill_in 'user[password]', with: @user.password
-        find('input[name="commit"]').click
+        # サインインする
+        sign_in_support(@user)
         # 商品詳細ページに遷移する
         expect(current_path).to eq root_path
         visit item_path(@item)

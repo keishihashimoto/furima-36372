@@ -1,4 +1,19 @@
-<%= link_to item_favorites_path(item), method: :post, remote: true do %>
-<%= image_tag "star.png" ,class:"favorite-star-icon" ,width:"20",height:"20"%>
-<span class="star-count">お気に入り <%= item.favorites.length %></span>
+<% if user_signed_in? %>
+<!--サインインしていてかつお気に入り登録済みの場合にはdestroyアクションに対応したリンクを表示-->
+  <% if Favorite.exists?(user_id: current_user.id, item_id: item.id) %>
+    <%= link_to item_favorite_path(item, favorite), method: :delete, remote: true do %>
+    <%= image_tag "star.png" ,class:"favorite-star-icon" ,width:"20",height:"20"%>
+    <span class="star-count">お気に入り <%= item.favorites.length %></span>
+    <% end %>
+  <% else %>
+    <%= link_to item_favorites_path(item), method: :post, remote: true do %>
+    <%= image_tag "star.png" ,class:"favorite-star-icon" ,width:"20",height:"20"%>
+    <span class="star-count">お気に入り <%= item.favorites.length %></span>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= link_to item_favorites_path(item), method: :post, remote: true do %>
+  <%= image_tag "star.png" ,class:"favorite-star-icon" ,width:"20",height:"20"%>
+  <span class="star-count">お気に入り <%= item.favorites.length %></span>
+  <% end %>
 <% end %>
