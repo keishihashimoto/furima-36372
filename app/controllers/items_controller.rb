@@ -20,6 +20,9 @@ class ItemsController < ApplicationController
   end
 
   def show
+    if Favorite.exists?(item_id: @item.id, user_id: current_user.id)
+      @favorite = Favorite.where(item_id: @item.id, user_id: current_user.id)
+    end
   end
 
   def edit

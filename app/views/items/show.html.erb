@@ -67,7 +67,7 @@
     </table>
     <div class="option">
       <div class="favorite-btn" id="star-btn-<%= @item.id %>-show">
-      <%= render "shared/star_btn_show", item: @item %>
+      <%= render "shared/star_btn_show", {item: @item, favorite: @favorite} %>
       </div>
       <div class="report-btn">
         <%= image_tag "flag.png" ,class:"report-flag-icon" ,width:"20",height:"20"%>
