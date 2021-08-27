@@ -9,7 +9,7 @@ RSpec.describe 'Users', type: :system do
       it '自分のページにはサインインできる、出品した商品が表示されている(sold out なし)' do
         # @userの商品を一つ出品する
         item = FactoryBot.create(:item, user_id: @user.id)
-        #サインインする
+        # サインインする
         sign_in_support(@user)
         # "ページ上部のユーザー名をクリック"
         click_link(@user.nickname.to_s)
