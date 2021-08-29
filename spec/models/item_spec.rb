@@ -9,12 +9,16 @@ RSpec.describe Item, type: :model do
       it '正しい情報が入力されていれば出品できる' do
         expect(@item).to be_valid
       end
+      it "画像が１枚しかなくても出品できる" do
+        @item.images[1] = nil
+        expect(@item).to be_valid
+      end
     end
     context '出品できない時' do
       it '画像が添付されていなければ出品できない' do
-        @item.image = nil
+        @item.images = []
         @item.valid?
-        expect(@item.errors.full_messages).to include("Image can't be blank")
+        expect(@item.errors.full_messages).to include("Images can't be blank")
       end
       it '商品名がなければ出品できない' do
         @item.name = ''

@@ -20,10 +20,8 @@ class ItemsController < ApplicationController
   end
 
   def show
-    if user_signed_in?
-      if Favorite.exists?(item_id: @item.id, user_id: current_user.id)
-        @favorite = Favorite.where(item_id: @item.id, user_id: current_user.id)
-      end
+    if user_signed_in? && Favorite.exists?(item_id: @item.id, user_id: current_user.id)
+      @favorite = Favorite.where(item_id: @item.id, user_id: current_user.id)
     end
   end
 
@@ -56,8 +54,8 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:image, :name, :description, :category_id, :condition_id, :postage_id, :prefecture_id,
-                                 :delivery_id, :price).merge(user_id: current_user.id)
+    params.require(:item).permit(:name, :description, :category_id, :condition_id, :postage_id, :prefecture_id,
+                                 :delivery_id, :price, images: []).merge(user_id: current_user.id)
   end
 
   def set_item
