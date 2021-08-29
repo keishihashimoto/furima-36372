@@ -19,6 +19,10 @@ RSpec.describe 'Users', type: :system do
         expect(page).to have_selector '.item-name', text: item.name
         # "未購入の商品にはsold outが表示されていない"
         expect(page).to_not have_content('Sold Out!!')
+        # 検索結果にその商品の１枚目の画像が含まれている
+        expect(page).to have_selector("img[src$='test_image.png']")
+        # 検索結果にその商品の2枚目の画像が含まれていない
+        expect(page).to have_no_selector("img[src$='test_image_2.png']")
       end
       it '自分のページにはサインインできる、出品した商品が表示されている(売却済み、sold out あり)' do
         # @userの商品を一つ出品する
@@ -38,6 +42,10 @@ RSpec.describe 'Users', type: :system do
         expect(page).to have_selector '.item-name', text: item.name
         # "sold outが表示されている"
         expect(page).to have_content('Sold Out!!')
+        # 検索結果にその商品の１枚目の画像が含まれている
+        expect(page).to have_selector("img[src$='test_image.png']")
+        # 検索結果にその商品の2枚目の画像が含まれていない
+        expect(page).to have_no_selector("img[src$='test_image_2.png']")
       end
       it '自分のページにはサインインできる、お気に入り登録した商品が表示されている(sold out なし)' do
         # 他のユーザーの商品にお気に入り登録をする。
@@ -52,6 +60,10 @@ RSpec.describe 'Users', type: :system do
         # "自分がお気に入り登録した商品が表示されている(sold out なし)"
         expect(page).to have_selector '.item-name', text: item.name
         expect(page).not_to have_content('Sold Out!!')
+        # 検索結果にその商品の１枚目の画像が含まれている
+        expect(page).to have_selector("img[src$='test_image.png']")
+        # 検索結果にその商品の2枚目の画像が含まれていない
+        expect(page).to have_no_selector("img[src$='test_image_2.png']")
       end
       it '自分のページにはサインインできる、お気に入り登録した商品が表示されている(購入済み、sold out あり)' do
         # 他のユーザーの商品にお気に入り登録をする。
@@ -68,6 +80,10 @@ RSpec.describe 'Users', type: :system do
         # "自分がお気に入り登録した商品が表示されている(sold out あり)"
         expect(page).to have_selector '.item-name', text: item.name
         expect(page).to have_content('Sold Out!!')
+        # 検索結果にその商品の１枚目の画像が含まれている
+        expect(page).to have_selector("img[src$='test_image.png']")
+        # 検索結果にその商品の2枚目の画像が含まれていない
+        expect(page).to have_no_selector("img[src$='test_image_2.png']")
       end
     end
     context 'マイページに入れない時（サインインしていない）' do

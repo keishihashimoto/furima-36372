@@ -21,7 +21,7 @@ const setPreview = () => {
     // 画像をプレビュー表示
     createImageHTML(url)
     // 2枚目の画像を選択するためのフォームを作成
-    let imageNum = document.querySelectorAll(".parent")// 既に表示されている画像の枚数を取得
+    let imageNum = document.querySelectorAll(".parent").length// 既に表示されている画像の枚数を取得
     const html = `<input type="file" name="item[images][]" id="item-image-${imageNum}">`// 既に表示されている画像の枚数をidに付与
     document.getElementById("click-upload").insertAdjacentHTML("beforeend", html)
     // ２つ目の画像投稿フォームをイベント発火の対象に指定
